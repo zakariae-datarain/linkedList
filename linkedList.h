@@ -12,7 +12,7 @@ class linkedList{
 		static unsigned int numberOfNodes;
 	public:
 		linkedList();
-		//virtual ~linkedList();
+		virtual ~linkedList();
 		void addToStart(char*&);
 		void addToEnd(char*&);
 		void addToPosition(char*&,const unsigned int&);

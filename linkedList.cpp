@@ -7,6 +7,14 @@ linkedList::linkedList(){
 	this->list=NULL;
 }
 
+linkedList::~linkedList(){
+	while(this->list !=NULL){
+		this->removeAtStart();
+	}
+	delete this->list;
+	std::cout<<"object destoyed\n";
+}
+
 
 void linkedList::addToStart(char *&data){
 	element *newElement = new element;
@@ -166,26 +174,27 @@ void linkedList::show(){
 int main(){
 	
 
-	linkedList l;
+	linkedList *l=new linkedList();
 	char *name = new char[20];
 	std::cout<<"enter something : ";
 	std::cin.getline(name,20);
-	l.addToStart(name);
-	l.show();
+	l->addToStart(name);
+	l->show();
 	std::cout<<"\nenter something : ";
 	std::cin.getline(name,20);
-	l.addToStart(name);
-	l.show();
+	l->addToStart(name);
+	l->show();
 	std::cout<<"\nenter something : ";
 	std::cin.getline(name,20);
-	l.addToEnd(name);
-	l.show();
+	l->addToEnd(name);
+	l->show();
 	std::cout<<"\nenter something : ";
 	std::cin.getline(name,20);
-	l.addToPosition(name,1);
-	l.show();
-	l.removeAtPosition(5);
-	l.show();
+	l->addToPosition(name,1);
+	l->show();
+	l->removeAtPosition(5);
+	l->show();
+	delete l;
 
 
 	return 0;
