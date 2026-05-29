@@ -9,16 +9,16 @@ struct element{
 class linkedList{
 	private:
 		element *list;
-		static int numberOfNodes;
+		static unsigned int numberOfNodes;
 	public:
 		linkedList();
 		//virtual ~linkedList();
 		void addToStart(char*&);
 		void addToEnd(char*&);
-		void addToPosition(char*&,const int&);
+		void addToPosition(char*&,const unsigned int&);
 		void removeAtStart();
 		void removeAtEnd();
-		void removeAtPosition(const int&);
+		void removeAtPosition(const unsigned int&);
 		void show();
 
 };

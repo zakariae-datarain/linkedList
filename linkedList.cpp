@@ -1,7 +1,7 @@
 #include  "linkedList.h"
 #include <cstddef>
 
-int linkedList::numberOfNodes=0;
+unsigned int linkedList::numberOfNodes=0;
 
 linkedList::linkedList(){
 	this->list=NULL;
@@ -53,12 +53,12 @@ void linkedList::addToEnd(char *&data){
 }
 
 
-void linkedList::addToPosition(char *&data,const int &position){
+void linkedList::addToPosition(char *&data,const unsigned int &position){
 	if(position>linkedList::numberOfNodes){
 		std::cout<<"you are out of bounds\n";
 		return;
 	}
-	else if (position==0){
+	else if (position==1){
 		this->addToStart(data);
 	}
 	else if(position==linkedList::numberOfNodes){
@@ -66,7 +66,7 @@ void linkedList::addToPosition(char *&data,const int &position){
 	}
 	else{
 		element *current= this->list;
-		for(int i=0;i<position-1;i++){
+		for(int i=1;i<position-1;i++){
 			current=current->next;
 		}
 		element *temp= current->next;
@@ -76,11 +76,74 @@ void linkedList::addToPosition(char *&data,const int &position){
 		newElement->data=new char[strlen(data)+1];
 		strcpy(newElement->data,data);
 		newElement->data[strlen(data)]='\0';
+		linkedList::numberOfNodes++;
 	}
 	
 
 
-	linkedList::numberOfNodes++;
+}
+
+
+void linkedList::removeAtStart(){
+	if(this->list==NULL){
+		std::cout<<"empty list \n";
+		return;
+	}
+	element *tmp=this->list;
+	this->list=this->list->next;
+	tmp->next=NULL;
+	delete [] tmp->data;
+	delete tmp;
+
+	linkedList::numberOfNodes--;
+}
+
+
+void linkedList::removeAtEnd(){
+	if(this->list==NULL){
+		std::cout<<"empty list !\n";
+		return;
+	}
+	else if(this->list->next==NULL){
+		this->removeAtStart();
+		return;
+	}
+	element *current=this->list;
+	while(current->next->next !=NULL){
+		
+		current=current->next;
+	}
+
+	element *tmp=current->next;
+	current->next = NULL;
+	delete [] tmp->data;
+	delete tmp;
+	linkedList::numberOfNodes--;
+}
+
+void linkedList::removeAtPosition(const unsigned int &position){
+	if(position>linkedList::numberOfNodes){
+		std::cout<<"you are out of bounds brother!\n";
+	}
+	else if(position==1){
+		this->removeAtStart();
+	}
+	else if(position==linkedList::numberOfNodes){
+		this->removeAtEnd();
+	}
+	else{
+		element *current=this->list;
+		for(int i=1;i<position-1;i++){
+			current=current->next;
+		}
+		element *tmp=current->next;
+		current->next=current->next->next;
+		tmp->next=NULL;
+		delete [] tmp->data;
+		delete tmp;
+		linkedList::numberOfNodes--;
+
+	}
 }
 
 
@@ -120,6 +183,8 @@ int main(){
 	std::cout<<"\nenter something : ";
 	std::cin.getline(name,20);
 	l.addToPosition(name,1);
+	l.show();
+	l.removeAtPosition(5);
 	l.show();
 
 
